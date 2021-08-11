@@ -18,15 +18,13 @@
       let maxX = 250;
       let maxY = 250;
 
-      // Base64-encoded version of https://avatars.githubusercontent.com/u/856858?s=10 (@martinwoodward)
-      // We'll request and convert the 10px version with '?s=10', but 4X it to make it look pixelated / 8-bit
-      image1.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAABRklEQVR4nAA2Acn+BBUVGAEBAQECAgkHBRwSDOnw9PP3+/8A///////+/wMODxECAwMSCwiPaUt5aVpEKBDM1Nvw+QEBAQIBAgEDEBASAgICaFE9WFdUBxspERISEQH1z+Ly+Pj5AQECBAIDBAAAABYKAvj6/gf39+Hi7AH19wj+9wIDAwIAAAMRExYhFhFELyLEwMcKAfzIy88YFBMJ9/bY7vj8//8CAQIDGRcXKigrXF9c9/f7KR8cISEfCA4O/gABAgIEAxMUGufu8QcDAB0ZDv/9B/X19+/59IapwPwAAwABAgMTFRv/AAHP3/IYEAY7QDwDCAWMmabY5fEHCQkBAAEE8xlB9hg49v0cxsh/2Nbb8PDy5eXn7gc9+RUlDfXQBOkwewAGBQHz7hw4aBHWp9nc3uUSS/0BOfEuQ/L+/wEAAP//vfF6IGkR4p8AAAAASUVORK5CYII='
+      // Avatar for @martinwoodward
+      image1.src = 'https://avatars.githubusercontent.com/u/856858?s=10'
       image1.width = 40;
       image1.height = 40;
 
-      // Base64-encoded version of https://avatars.githubusercontent.com/u/56260?s=10 (@nat)
-      // We'll request and convert the 10px version with '?s=10', but 4X it to make it look pixelated / 8-bit
-      image2.src = 'data:image/png;base64,/9j/2wCEAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDIBCQkJDAsMGA0NGDIhHCEyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/AABEIAAoACgMBIgACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APQfHlo91Kj2920V7mOGzkWcoLaYkkMQDg5+UYPXj1ruBwACcn19a+Xraea7+FevSXMrzP8Abo33SMWO4qMnJ7+9ZVt4o8QxWkMceu6miIiqqrdyAAAcADNAH//Z'
+      // Avatar for @nat
+      image2.src = 'https://avatars.githubusercontent.com/u/56260?s=10'
       image2.width = 40;
       image2.height = 40;
 
@@ -58,7 +56,7 @@
         // Check and update the game state every tick
         update: function() {
 
-          // Update the player 1's position depending on what arrow key is pressed
+          // Update player 1's position depending on what arrow key is pressed
           if (keyPressed('left')) {
             sprite1.x = sprite1.x - 1;
           }
