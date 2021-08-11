@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  </head>
+
+  <body>
+    <canvas width="250" height="250" id="game" style="background-color: black;"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/kontra@7.1.3/kontra.min.js"></script>
+    <script>
+      let { GameLoop, Sprite, SpriteSheet, Text, bindKeys, collides, init, initKeys ,keyPressed ,randInt } = kontra
+
+      // Create a couple of images for player 1 and player 2
+      let image1 = new Image();
+      let image2 = new Image();
+
+      // Set maxium X and Y values for placing images on canvas
+      let maxX = 250;
+      let maxY = 250;
+
+      // Base64-encoded version of https://avatars.githubusercontent.com/u/856858?s=10 (@martinwoodward)
+      // We'll request and convert the 10px version with '@s=10', but 4X it to make it look pixelated / 8-bit
+      image1.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAABRklEQVR4nAA2Acn+BBUVGAEBAQECAgkHBRwSDOnw9PP3+/8A///////+/wMODxECAwMSCwiPaUt5aVpEKBDM1Nvw+QEBAQIBAgEDEBASAgICaFE9WFdUBxspERISEQH1z+Ly+Pj5AQECBAIDBAAAABYKAvj6/gf39+Hi7AH19wj+9wIDAwIAAAMRExYhFhFELyLEwMcKAfzIy88YFBMJ9/bY7vj8//8CAQIDGRcXKigrXF9c9/f7KR8cISEfCA4O/gABAgIEAxMUGufu8QcDAB0ZDv/9B/X19+/59IapwPwAAwABAgMTFRv/AAHP3/IYEAY7QDwDCAWMmabY5fEHCQkBAAEE8xlB9hg49v0cxsh/2Nbb8PDy5eXn7gc9+RUlDfXQBOkwewAGBQHz7hw4aBHWp9nc3uUSS/0BOfEuQ/L+/wEAAP//vfF6IGkR4p8AAAAASUVORK5CYII='
+      image1.width = 40;
+      image1.height = 40;
+
+      // Base64-encoded version of https://avatars.githubusercontent.com/u/56260?s=10 (@nat)
+      // We'll request and convert the 10px version with '@s=10', but 4X it to make it look pixelated / 8-bit
+      image2.src = 'data:image/png;base64,/9j/2wCEAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDIBCQkJDAsMGA0NGDIhHCEyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/AABEIAAoACgMBIgACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APQfHlo91Kj2920V7mOGzkWcoLaYkkMQDg5+UYPXj1ruBwACcn19a+Xraea7+FevSXMrzP8Abo33SMWO4qMnJ7+9ZVt4o8QxWkMceu6miIiqqrdyAAAcADNAH//Z'
+      image2.width = 40;
+      image2.height = 40;
+
+      let { canvas } = init();
+
+      // We'll put the player 1 sprite on the top left of the screen
+      let sprite1 = Sprite({
+        x: 40,
+        y: 40,
+        anchor: {
+          x: 0.5,
+          y: 0.5
+        },
+        image: image1
+      });
+
+      // We'll put the player 2 sprite somewhere randomly on the screen
+      let sprite2 = Sprite({
+        x: randInt(0, maxX),
+        y: randInt(0, maxY),
+        anchor: {
+          x: 0.5,
+          y: 0.5
+        },
+        image: image2
+      });
+
+      let loop = GameLoop({ 
+        // Check and update the game state every tick
+        update: function() {
+
+          // Update the player 1's position depending on what arrow key is pressed
+          if (keyPressed('left')) {
+            sprite1.x = sprite1.x - 1;
+          }
+
+          if (keyPressed('right')) {
+            sprite1.x = sprite1.x + 1;
+          }
+
+          if (keyPressed('up')) {
+            sprite1.y = sprite1.y - 1;
+          }
+
+          if (keyPressed('down')) {
+            sprite1.y = sprite1.y + 1;
+          }
+
+          // What happens when the two sprites collide
+          if (collides(sprite1, sprite2)) {
+            sprite2.x = randInt(41, maxX - 40);
+            sprite2.y = randInt(41, maxY - 40);
+          }
+        },
+
+        // Render the game state
+        render: function() {
+          sprite1.render();
+          sprite2.render();
+        }
+      });
+
+      initKeys();
+
+      loop.start();
+    </script>
+  </body>
+
+</html>
